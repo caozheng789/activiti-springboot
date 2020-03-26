@@ -7,6 +7,8 @@ import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
+import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.builders.TaskPayloadBuilder;
 import org.activiti.api.task.runtime.TaskRuntime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,6 +76,25 @@ public class ActivitiTest {
                 .build());
 
         log.info("流程实例ID ={}",myGroup.getId());
+    }
+
+    /**
+     * 查询，并完成任务
+     */
+    @Test
+    public void testTask(){
+        securityUtil.logInAs("ryandawsonuk");
+        Page<Task> tasks = taskRuntime.tasks(Pageable.of(0, 10));
+        if (tasks.getTotalItems() > 0){
+            for (Task task: tasks.getContent()) {
+                //拾取任务
+//                taskRuntime.claim(TaskPayloadBuilder
+//                .claim()
+//                .withTaskId(task.getId()).build());
+                log.info("拾取任务={}",task);
+
+            }
+        }
     }
 
 
