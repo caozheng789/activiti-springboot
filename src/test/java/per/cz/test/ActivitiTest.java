@@ -88,11 +88,16 @@ public class ActivitiTest {
         if (tasks.getTotalItems() > 0){
             for (Task task: tasks.getContent()) {
                 //拾取任务
-//                taskRuntime.claim(TaskPayloadBuilder
-//                .claim()
-//                .withTaskId(task.getId()).build());
+                taskRuntime.claim(TaskPayloadBuilder.claim().withTaskId(task.getId()).build());
                 log.info("拾取任务={}",task);
-
+                //执行任务
+                taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task.getId()).build());
+            }
+        }
+        tasks = taskRuntime.tasks(Pageable.of(0, 10));
+        if (tasks.getTotalItems() > 0){
+            for (Task task: tasks.getContent()) {
+                log.info("任务={}",task);
             }
         }
     }

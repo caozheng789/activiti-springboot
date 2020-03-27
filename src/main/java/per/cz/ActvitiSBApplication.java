@@ -5,15 +5,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author Administrator
  */
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-public class ActvitiSBApplication {
+@SpringBootApplication(
+		exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
+		org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration.class
+})
+public class ActvitiSBApplication extends SpringBootServletInitializer {
+
 	private Logger logger = LoggerFactory.getLogger(ActvitiSBApplication.class);
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(ActvitiSBApplication.class);
+	}
 
 
 
