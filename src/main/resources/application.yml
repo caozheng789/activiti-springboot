@@ -4,10 +4,37 @@ spring:
     username : root
     password : 123456
     driver-class-name: com.mysql.jdbc.Driver
-
+#模块配置
+# freemarker模板引擎
+#  freemarker:
+#    request-context-attribute: req  #req访问request
+#    suffix: .ftl  #后缀名
+#    content-type: text/html
+#    enabled: true
+#    cache: false #缓存配置
+#    template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+#    charset: UTF-8 #编码格式
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+  freemarker:
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html; charset=utf-8
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    suffix: .ftl
+    template-loader-path: classpath:/templates
 
 #解决在部署时候，创建数据库表时，缺少历史表，以及无数据问题
   activiti:
     db-history-used: true
     history-level: full
+
+
+
 
